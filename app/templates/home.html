@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush">
+    {% for note in user.notes %}
+    <li class="list-group-item d-flex">
+        <p class="p-0 m-0 flex-grow-1">{{note.content}}</p>
+        <!-- TODO Implement Edit -->
+        <button class="btn-success">EDIT</button>
+        <button class="btn-danger" onClick="deleteNote({{note.id}})">DELETE</button>
+    </li>
+    {% endfor %}
+</ul>
+<br>
+<form method="post">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+</form>
+{% endblock %}
