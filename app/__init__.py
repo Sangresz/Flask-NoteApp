@@ -1,16 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import path
 from flask_login import LoginManager
-
-db = SQLAlchemy()
-DB_NAME = "database.db"
+# Keep this config file for these two informations
+from .config import SECRET_KEY, SQLALCHEMY_DATABASE_URI
 
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'dev'  # TODO: change to something better
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+
+    db = SQLAlchemy(app)
+
+    app.config['SECRET_KEY'] = SECRET_KEY
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
@@ -23,8 +26,6 @@ def create_app():
 
     from .models import Users, Notes
 
-    create_db(app)
-
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
@@ -34,9 +35,3 @@ def create_app():
         return Users.query.get(int(id))
 
     return app
-
-
-def create_db(app):
-    if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
-        print("Created Database")

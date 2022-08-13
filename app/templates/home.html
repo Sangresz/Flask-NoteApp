@@ -5,10 +5,12 @@
 <ul class="list-group list-group-flush">
     {% for note in user.notes %}
     <li class="list-group-item d-flex">
-        <p class="p-0 m-0 flex-grow-1">{{note.content}}</p>
-        <!-- TODO Implement Edit -->
-        <button class="btn-success">EDIT</button>
-        <button class="btn-danger" onClick="deleteNote({{note.id}})">DELETE</button>
+        <p id="note_content" class="p-0 m-0 flex-grow-1" contenteditable="true">{{note.content}}</p>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-success"
+                onClick="updateNote({{note.id}}, document.getElementById('note_content').textContent)">Update</button>
+            <button type="button" class="btn btn-danger" onClick="deleteNote({{note.id}})">Delete</button>
+        </div>
     </li>
     {% endfor %}
 </ul>

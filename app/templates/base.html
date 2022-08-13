@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 
-<!-- TODO Change all url to url_for -->
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fifth navbar example">
         <div class="container-fluid">
@@ -43,8 +41,7 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                             aria-expanded="false">{{user.username}}</a>
                         <ul class="dropdown-menu">
-                            <!-- TODO Implementare settings -->
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('auth.settings')}}">Settings</a></li>
                             <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a></li>
                         </ul>
                     </li>
